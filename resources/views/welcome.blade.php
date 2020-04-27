@@ -10,6 +10,7 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
         <!-- Styles -->
+        <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
         <style>
             html, body {
                 background-color: #fff;
@@ -56,8 +57,11 @@
                 letter-spacing: .1rem;
                 text-decoration: none;
                 text-transform: uppercase;
+                transition: color 0.5s;
             }
-
+            .links > a:hover {
+                color: #ff8500;
+            }
             .m-b-md {
                 margin-bottom: 30px;
             }
