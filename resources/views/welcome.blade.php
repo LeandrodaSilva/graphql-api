@@ -41,6 +41,15 @@
                 top: 18px;
             }
 
+            .opacity {
+                opacity: 0;
+            }
+
+            .opacity:hover {
+                transition: opacity ease-in-out 0.5s;
+                opacity: 1;
+            }
+
             .content {
                 text-align: center;
             }
@@ -74,10 +83,10 @@
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
-                        <a href="{{ route('login') }}">Login</a>
+                        <a href="{{ route('login') }}" class="opacity">Login</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
+                            <a href="{{ route('register') }}" class="opacity">Register</a>
                         @endif
                     @endauth
                 </div>
@@ -90,12 +99,12 @@
 
                 <div class="links">
                     <a href="https://github.com/LeandrodaSilva">GitHub</a>
-                    <a href="">LinkedLn</a>
-                    <a href="">Instagram</a>
-                    <a href="">Facebook</a>
-                    <a href="">Twitter</a>
-                    <a href="">Email</a>
-                    <a href="">Youtube</a>
+                    <a href="https://www.linkedin.com/in/leandro-da-silva-874463a4">LinkedLn</a>
+                    <a href="https://www.instagram.com/leandrolds13/">Instagram</a>
+                    <a href="https://www.facebook.com/leandro.ds13">Facebook</a>
+                    <a href="https://twitter.com/ld_silva13">Twitter</a>
+                    <a href="mailto:ld_silva13@gmail.com?subject=Hello&body=Hello Leandro!">Email</a>
+                    <a href="https://www.youtube.com/user/leleonline100">Youtube</a>
                 </div>
             </div>
         </div>
