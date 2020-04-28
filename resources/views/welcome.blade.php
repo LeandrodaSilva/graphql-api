@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Leandro da Silva</title>
+        <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -94,7 +94,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Leandro da Silva
+                    {{ config('app.name', 'Laravel') }}
                 </div>
 
                 <div class="links">
