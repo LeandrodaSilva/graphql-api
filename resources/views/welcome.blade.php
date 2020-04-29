@@ -58,6 +58,30 @@
                 font-size: 84px;
             }
 
+            @media screen and (min-width: 1360px) {
+                .title {
+                    font-size: 84px;
+                }
+            }
+
+            @media screen and (max-width: 1100px) {
+                .title {
+                    font-size: 7vw;
+                }
+            }
+
+            @media screen and (max-width: 900px) {
+                .title {
+                    font-size: 8vw;
+                }
+            }
+
+            @media screen and (max-width: 600px) {
+                .title {
+                    font-size: 9vw;
+                }
+            }
+
             .links > a {
                 color: #636b6f;
                 padding: 0 25px;
@@ -98,13 +122,27 @@
                 </div>
 
                 <div class="links">
-                    <a href="https://github.com/LeandrodaSilva">GitHub</a>
-                    <a href="https://www.linkedin.com/in/leandro-da-silva-874463a4">LinkedLn</a>
-                    <a href="https://www.instagram.com/leandrolds13/">Instagram</a>
-                    <a href="https://www.facebook.com/leandro.ds13">Facebook</a>
-                    <a href="https://twitter.com/ld_silva13">Twitter</a>
-                    <a href="mailto:ld_silva13@gmail.com?subject=Hello&body=Hello Leandro!">Email</a>
-                    <a href="https://www.youtube.com/user/leleonline100">Youtube</a>
+                    <a href="https://github.com/LeandrodaSilva">
+                        <i class="fas fa-camera"></i>GitHub
+                    </a>
+                    <a href="https://www.linkedin.com/in/leandro-da-silva-874463a4">
+                        <i class="linkedin"></i>LinkedLn
+                    </a>
+                    <a href="https://www.instagram.com/leandrolds13/">
+                        <i class="instagram"></i>Instagram
+                    </a>
+                    <a href="https://www.facebook.com/leandro.ds13">
+                        <i class="facebook"></i>Facebook
+                    </a>
+                    <a href="https://twitter.com/ld_silva13">
+                        <i class="twitter"></i>Twitter
+                    </a>
+                    <a href="mailto:ld_silva13@gmail.com?subject=Hello&body=Hello Leandro!">
+                        <i class="email"></i>Email
+                    </a>
+                    <a href="https://www.youtube.com/user/leleonline100">
+                        <i class="youtube"></i>Youtube
+                    </a>
                 </div>
             </div>
         </div>

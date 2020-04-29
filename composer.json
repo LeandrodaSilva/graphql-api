@@ -17,6 +17,7 @@
         "laravel/ui": "^2.0",
         "laravelcollective/html": "^6.1",
         "mll-lab/laravel-graphql-playground": "^2.1",
+        "nothingworks/blade-svg": "^0.3.4",
         "nuwave/lighthouse": "^4.12",
         "spatie/laravel-permission": "^3.11"
     },
