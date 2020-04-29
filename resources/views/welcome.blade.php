@@ -14,7 +14,7 @@
         <style>
             html, body {
                 background-color: #fff;
-                color: #636b6f;
+                color: #d0d4d4;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
                 height: 100vh;
@@ -108,5 +108,22 @@
                 </div>
             </div>
         </div>
+        <script src="/js/three.min.js"></script>
+        <script src="/js/vanta.waves.min.js"></script>
+        <script>
+            VANTA.WAVES({
+                el: "body",
+                mouseControls: true,
+                touchControls: true,
+                minHeight: 200.00,
+                minWidth: 200.00,
+                scale: 1.00,
+                scaleMobile: 1.00,
+                color: 0xc0c0c,
+                shininess: 9.00,
+                waveHeight: 8.50,
+                zoom: 0.65
+            })
+        </script>
     </body>
 </html>
