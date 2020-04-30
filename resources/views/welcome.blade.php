@@ -11,10 +11,13 @@
 
         <!-- Styles -->
         <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" ></script>
+        <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+        <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
         <style>
             html, body {
-                background-color: #fff;
-                color: #d0d4d4;
+                background-color: #131313;
+                color: #969c9c;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
                 height: 100vh;
@@ -38,6 +41,12 @@
             .top-right {
                 position: absolute;
                 right: 10px;
+                top: 18px;
+            }
+
+            .top-left {
+                position: absolute;
+                left: 10px;
                 top: 18px;
             }
 
@@ -108,6 +117,16 @@
                 transition: transform .2s;
             }
 
+            .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20px; }
+            .toggle.ios .toggle-handle { border-radius: 20px; }
+            .btn-default .toggle-on {
+                color: #797878;
+                background-color: #2d2a2a !important;
+            }
+            .btn-default .toggle-off {
+                color: #797878;
+                background-color: #000000 !important;
+            }
         </style>
     </head>
     <body>
@@ -118,14 +137,25 @@
                         <a href="{{ url('/home') }}">Home</a>
                     @else
                         <a href="{{ route('login') }}" title="Login">@svg('solid/sign-in-alt')</a>
-
-{{--                        @if (Route::has('register'))--}}
-{{--                            <a href="{{ route('register') }}">@svg('solid/user-plus')</a>--}}
-{{--                        @endif--}}
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}">@svg('solid/user-plus')</a>
+                        @endif
                     @endauth
                 </div>
             @endif
-
+            <div class="top-left links">
+                <a>
+                    <label class="checkbox-inline">
+                        <input id="toggle-event"
+                               type="checkbox"
+                               data-toggle="toggle"
+                               data-size="small"
+                               data-style="ios"
+                               data-onstyle="default"
+                               data-offstyle="default"> Animação
+                    </label>
+                </a>
+            </div>
             <div class="content">
                 <div class="title m-b-md">
                     {{ config('app.name', 'Laravel') }}
@@ -159,7 +189,7 @@
         <script src="/js/three.min.js"></script>
         <script src="/js/vanta.waves.min.js"></script>
         <script>
-            VANTA.WAVES({
+            const options = {
                 el: "body",
                 mouseControls: true,
                 touchControls: true,
@@ -171,6 +201,25 @@
                 shininess: 9.00,
                 waveHeight: 8.50,
                 zoom: 0.65
+            };
+            let effect;
+            if(localStorage.getItem('animation') === 'true' || localStorage.getItem('animation') === null) {
+                effect =  VANTA.WAVES(options);
+                $('#toggle-event').bootstrapToggle('on');
+            } else {
+                $('#toggle-event').bootstrapToggle('off');
+            }
+            $(function() {
+                $('#toggle-event').change(function() {
+                    if($(this).prop('checked') && localStorage.getItem('animation') === 'false') {
+                       effect = VANTA.WAVES(options);
+
+                        localStorage.setItem('animation', 'true');
+                    } else {
+                        localStorage.setItem('animation', 'false');
+                        effect.destroy();
+                    }
+                })
             })
         </script>
     </body>
