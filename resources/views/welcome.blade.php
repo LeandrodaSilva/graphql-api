@@ -41,15 +41,6 @@
                 top: 18px;
             }
 
-            .opacity {
-                opacity: 0;
-            }
-
-            .opacity:hover {
-                transition: opacity ease-in-out 0.5s;
-                opacity: 1;
-            }
-
             .content {
                 text-align: center;
             }
@@ -91,13 +82,32 @@
                 text-decoration: none;
                 text-transform: uppercase;
                 transition: color 0.5s;
+                white-space: nowrap;
             }
+
             .links > a:hover {
-                color: #ff8500;
+                color: #3c96ff;
             }
+
+            .links > a:hover>.icon {
+                transform: scale(1.2);
+            }
+
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+            .icon {
+                fill: currentColor;
+                display: inline-block;
+                font-size: inherit;
+                height: 2em;
+                overflow: visible;
+                vertical-align: -.125em;
+                padding-right: 5px;
+                transition: transform .2s;
+            }
+
         </style>
     </head>
     <body>
@@ -107,11 +117,11 @@
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
-                        <a href="{{ route('login') }}" class="opacity">Login</a>
+                        <a href="{{ route('login') }}" title="Login">@svg('solid/sign-in-alt')</a>
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="opacity">Register</a>
-                        @endif
+{{--                        @if (Route::has('register'))--}}
+{{--                            <a href="{{ route('register') }}">@svg('solid/user-plus')</a>--}}
+{{--                        @endif--}}
                     @endauth
                 </div>
             @endif
@@ -123,25 +133,25 @@
 
                 <div class="links">
                     <a href="https://github.com/LeandrodaSilva">
-                        <i class="fas fa-camera"></i>GitHub
+                        @svg('brands/github') GitHub
                     </a>
                     <a href="https://www.linkedin.com/in/leandro-da-silva-874463a4">
-                        <i class="linkedin"></i>LinkedLn
+                        @svg('brands/linkedin') LinkedLn
                     </a>
                     <a href="https://www.instagram.com/leandrolds13/">
-                        <i class="instagram"></i>Instagram
+                        @svg('brands/instagram') Instagram
                     </a>
                     <a href="https://www.facebook.com/leandro.ds13">
-                        <i class="facebook"></i>Facebook
+                        @svg('brands/facebook') Facebook
                     </a>
                     <a href="https://twitter.com/ld_silva13">
-                        <i class="twitter"></i>Twitter
+                        @svg('brands/twitter') Twitter
                     </a>
                     <a href="mailto:ld_silva13@gmail.com?subject=Hello&body=Hello Leandro!">
-                        <i class="email"></i>Email
+                        @svg('solid/envelope') Email
                     </a>
                     <a href="https://www.youtube.com/user/leleonline100">
-                        <i class="youtube"></i>Youtube
+                        @svg('brands/youtube') Youtube
                     </a>
                 </div>
             </div>
