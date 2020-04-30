@@ -121,11 +121,11 @@
             .toggle.ios .toggle-handle { border-radius: 20px; }
             .btn-default .toggle-on {
                 color: #797878;
-                background-color: #2d2a2a !important;
+                background-color: rgba(45, 42, 42, 0.5) !important;
             }
             .btn-default .toggle-off {
                 color: #797878;
-                background-color: #000000 !important;
+                background-color: rgba(0, 0, 0, 0.5) !important;
             }
         </style>
     </head>
@@ -137,9 +137,6 @@
                         <a href="{{ url('/home') }}">Home</a>
                     @else
                         <a href="{{ route('login') }}" title="Login">@svg('solid/sign-in-alt')</a>
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">@svg('solid/user-plus')</a>
-                        @endif
                     @endauth
                 </div>
             @endif
@@ -149,10 +146,12 @@
                         <input id="toggle-event"
                                type="checkbox"
                                data-toggle="toggle"
+                               data-on="waves"
+                               data-off="off"
                                data-size="small"
                                data-style="ios"
                                data-onstyle="default"
-                               data-offstyle="default"> Animação
+                               data-offstyle="default">
                     </label>
                 </a>
             </div>
