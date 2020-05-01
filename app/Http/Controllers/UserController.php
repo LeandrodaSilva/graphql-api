@@ -2,23 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\User;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 use Spatie\Permission\Models\Role;
-use DB;
-use Hash;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param Request $request
+     * @return Application|Factory|View
      */
     public function index(Request $request)
     {
         $data = User::orderBy('id','DESC')->paginate(5);
+
         return view('users.index', compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -26,7 +32,7 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function create()
     {
@@ -37,8 +43,9 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return RedirectResponse
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -55,7 +62,8 @@ class UserController extends Controller
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
 
-        return redirect()->route('users.index')
+        return redirect()
+            ->route('users.index')
             ->with('success','User created successfully');
     }
 
@@ -63,7 +71,7 @@ class UserController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function show($id)
     {
@@ -75,7 +83,7 @@ class UserController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function edit($id)
     {
@@ -83,15 +91,16 @@ class UserController extends Controller
         $roles = Role::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
 
-        return view('users.edit',compact('user','roles','userRole'));
+        return view('users.edit', compact('user','roles','userRole'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return RedirectResponse
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
@@ -115,7 +124,8 @@ class UserController extends Controller
 
         $user->assignRole($request->input('roles'));
 
-        return redirect()->route('users.index')
+        return redirect()
+            ->route('users.index')
             ->with('success','User updated successfully');
     }
 
@@ -123,12 +133,14 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
     public function destroy($id)
     {
         User::find($id)->delete();
-        return redirect()->route('users.index')
+
+        return redirect()
+            ->route('users.index')
             ->with('success','User deleted successfully');
     }
 }

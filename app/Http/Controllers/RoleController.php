@@ -2,18 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 use Spatie\Permission\Models\Permission;
-use DB;
+use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     function __construct()
     {
@@ -26,31 +29,35 @@ class RoleController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Application|Factory|View
      */
     public function index(Request $request)
     {
         $roles = Role::orderBy('id','DESC')->paginate(5);
-        return view('roles.index',compact('roles'))
+
+        return view('roles.index', compact('roles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function create()
     {
         $permission = Permission::get();
+
         return view('roles.create',compact('permission'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return RedirectResponse
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -62,14 +69,15 @@ class RoleController extends Controller
         $role = Role::create(['name' => $request->input('name')]);
         $role->syncPermissions($request->input('permission'));
 
-        return redirect()->route('roles.index')
+        return redirect()
+            ->route('roles.index')
             ->with('success','Role created successfully');
     }
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function show($id)
     {
@@ -85,7 +93,7 @@ class RoleController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function edit($id)
     {
@@ -101,9 +109,10 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return RedirectResponse
+     * @throws ValidationException
      */
     public function update(Request $request, $id)
     {
@@ -118,19 +127,21 @@ class RoleController extends Controller
 
         $role->syncPermissions($request->input('permission'));
 
-        return redirect()->route('roles.index')
+        return redirect()
+            ->route('roles.index')
             ->with('success','Role updated successfully');
     }
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
     public function destroy($id)
     {
         DB::table("roles")->where('id',$id)->delete();
-        return redirect()->route('roles.index')
+        return redirect()
+            ->route('roles.index')
             ->with('success','Role deleted successfully');
     }
 }

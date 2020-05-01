@@ -12,6 +12,9 @@
         <!-- Styles -->
         <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" ></script>
+        <!-- Scripts -->
+        <script src="{{ asset('js/three.min.js') }}" defer></script>
+        <script src="{{ asset('js/vanta.waves.min.js') }}" defer></script>
         <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
         <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
         <style>
@@ -95,7 +98,7 @@
             }
 
             .links > a:hover {
-                color: #3c96ff;
+                color: #005ec9;
             }
 
             .links > a:hover>.icon {
@@ -126,6 +129,30 @@
             .btn-default .toggle-off {
                 color: #797878;
                 background-color: rgba(0, 0, 0, 0.5) !important;
+            }
+
+            #info {
+                position: absolute;
+                top: 10px;
+                width: 100%;
+                text-align: center;
+                z-index: 100;
+                display:block;
+            }
+            .darkmode-layer, .darkmode-toggle {
+                z-index: 500;
+            }
+
+            .darkmode--activated p, .darkmode--activated li {
+                color: #000;
+            }
+
+            .button {
+                isolation: isolate;
+            }
+
+            .darkmode--activated .logo {
+                mix-blend-mode: difference;
             }
         </style>
     </head>
@@ -185,41 +212,62 @@
                 </div>
             </div>
         </div>
-        <script src="/js/three.min.js"></script>
-        <script src="/js/vanta.waves.min.js"></script>
-        <script>
-            const options = {
-                el: "body",
-                mouseControls: true,
-                touchControls: true,
-                minHeight: 200.00,
-                minWidth: 200.00,
-                scale: 1.00,
-                scaleMobile: 1.00,
-                color: 0xc0c0c,
-                shininess: 9.00,
-                waveHeight: 8.50,
-                zoom: 0.65
-            };
-            let effect;
-            if(localStorage.getItem('animation') === 'true' || localStorage.getItem('animation') === null) {
-                effect =  VANTA.WAVES(options);
-                $('#toggle-event').bootstrapToggle('on');
-            } else {
-                $('#toggle-event').bootstrapToggle('off');
-            }
-            $(function() {
-                $('#toggle-event').change(function() {
-                    if($(this).prop('checked') && localStorage.getItem('animation') === 'false') {
-                       effect = VANTA.WAVES(options);
-
-                        localStorage.setItem('animation', 'true');
-                    } else {
-                        localStorage.setItem('animation', 'false');
-                        effect.destroy();
-                    }
-                })
-            })
+        <script src="{{ asset('js/app.js') }}" defer>
         </script>
+        <script>
+            const darkmode = window.Darkmode({
+                bottom: '85vh', // default: '32px'
+                right: 'unset', // default: '32px'
+                left: '32px', // default: 'unset'
+                time: '0.5s', // default: '0.3s'
+                mixColor: '#fff', // default: '#fff'
+                backgroundColor: '#fff',  // default: '#fff'
+                buttonColorDark: '#100f2c',  // default: '#100f2c'
+                buttonColorLight: '#fff', // default: '#fff'
+                saveInCookies: true, // default: true,
+                label: '🌓', // default: ''
+                autoMatchOsTheme: true // default: true
+            });
+            darkmode.showWidget();
+            console.log(darkmode.isActivated());
+        </script>
+{{--        <script>--}}
+
+{{--            // new Darkmode().showWidget();--}}
+
+
+{{--            const options = {--}}
+{{--                el: "body",--}}
+{{--                mouseControls: true,--}}
+{{--                touchControls: true,--}}
+{{--                minHeight: 200.00,--}}
+{{--                minWidth: 200.00,--}}
+{{--                scale: 1.00,--}}
+{{--                scaleMobile: 1.00,--}}
+{{--                color: 0xc0c0c,--}}
+{{--                shininess: 9.00,--}}
+{{--                waveHeight: 8.50,--}}
+{{--                zoom: 0.65--}}
+{{--            };--}}
+{{--            let effect;--}}
+{{--            if(localStorage.getItem('animation') === 'true' || localStorage.getItem('animation') === null) {--}}
+{{--                effect =  VANTA.WAVES(options);--}}
+{{--                $('#toggle-event').bootstrapToggle('on');--}}
+{{--            } else {--}}
+{{--                $('#toggle-event').bootstrapToggle('off');--}}
+{{--            }--}}
+{{--            $(function() {--}}
+{{--                $('#toggle-event').change(function() {--}}
+{{--                    if($(this).prop('checked') && localStorage.getItem('animation') === 'false') {--}}
+{{--                       effect = VANTA.WAVES(options);--}}
+
+{{--                        localStorage.setItem('animation', 'true');--}}
+{{--                    } else {--}}
+{{--                        localStorage.setItem('animation', 'false');--}}
+{{--                        effect.destroy();--}}
+{{--                    }--}}
+{{--                })--}}
+{{--            })--}}
+{{--        </script>--}}
     </body>
 </html>
